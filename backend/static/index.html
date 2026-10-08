@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinelOps — AIOps Microservices Health Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <div class="logo-shield">🛡️</div>
+            <div>
+                <h1>SENTINEL<span>OPS</span></h1>
+                <p class="subtitle">AIOps Autonomous Health & Anomaly Detection Platform</p>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <div class="status-pill active" id="system-status-pill">
+                <span class="pulse-dot"></span>
+                <span id="system-status-text">AI ENGINE ACTIVE</span>
+            </div>
+            <a href="http://localhost:3000" target="_blank" class="nav-btn grafana-link">
+                📊 Open Grafana
+            </a>
+            <a href="http://localhost:9090" target="_blank" class="nav-btn prom-link">
+                🔥 Prometheus
+            </a>
+            <a href="/docs" target="_blank" class="nav-btn docs-link">
+                📑 API Docs
+            </a>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Global Controls Banner -->
+        <section class="controls-banner">
+            <div class="control-group">
+                <h3>⚡ Demo Operations</h3>
+                <div class="btn-cluster">
+                    <button id="btn-toggle-traffic" class="btn btn-primary">
+                        <span class="btn-icon">🚀</span> <span id="traffic-btn-label">Start Traffic Simulation</span>
+                    </button>
+                    <button id="btn-reset-all" class="btn btn-success">
+                        <span class="btn-icon">🟢</span> Reset All Normal
+                    </button>
+                    <button id="btn-train-ml" class="btn btn-secondary">
+                        <span class="btn-icon">🧠</span> Retrain Isolation Forest
+                    </button>
+                </div>
+            </div>
+            <div class="telemetry-stats">
+                <div class="stat-card">
+                    <span class="stat-title">Active Services</span>
+                    <span class="stat-value" id="stat-active-services">3 / 3</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-title">Anomalies Caught</span>
+                    <span class="stat-value text-red" id="stat-anomaly-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-title">ML Model</span>
+                    <span class="stat-value text-cyan">Isolation Forest</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Cards Grid -->
+        <section class="services-grid">
+            <!-- User Service Card -->
+            <div class="service-card" id="card-user_service">
+                <div class="card-header">
+                    <div class="service-info">
+                        <span class="service-icon">👤</span>
+                        <div>
+                            <h4>User Service</h4>
+                            <span class="port-tag">Port :8001</span>
+                        </div>
+                    </div>
+                    <span class="badge badge-normal" id="badge-user_service">NORMAL</span>
+                </div>
+                <div class="metric-gauges">
+                    <div class="gauge-item">
+                        <span class="gauge-label">CPU</span>
+                        <span class="gauge-val" id="cpu-user_service">24.5%</span>
+                    </div>
+                    <div class="gauge-item">
+                        <span class="gauge-label">Latency</span>
+                        <span class="gauge-val" id="lat-user_service">45 ms</span>
+                    </div>
+                    <div class="gauge-item">
+                        <span class="gauge-label">Error Rate</span>
+                        <span class="gauge-val" id="err-user_service">0.0%</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <span class="action-title">Fault Injection:</span>
+                    <div class="fault-buttons">
+                        <button onclick="injectFault('user_service', 'high_latency')" class="fault-btn">⚠️ High Latency</button>
+                        <button onclick="injectFault('user_service', 'cpu_spike')" class="fault-btn">🔥 CPU Spike</button>
+                        <button onclick="injectFault('user_service', 'cascade_failure')" class="fault-btn fault-critical">💥 Cascade Failure</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Service Card -->
+            <div class="service-card" id="card-order_service">
+                <div class="card-header">
+                    <div class="service-info">
+                        <span class="service-icon">📦</span>
+                        <div>
+                            <h4>Order Service</h4>
+                            <span class="port-tag">Port :8002</span>
+                        </div>
+                    </div>
+                    <span class="badge badge-normal" id="badge-order_service">NORMAL</span>
+                </div>
+                <div class="metric-gauges">
+                    <div class="gauge-item">
+                        <span class="gauge-label">CPU</span>
+                        <span class="gauge-val" id="cpu-order_service">28.0%</span>
+                    </div>
+                    <div class="gauge-item">
+                        <span class="gauge-label">Latency</span>
+                        <span class="gauge-val" id="lat-order_service">52 ms</span>
+                    </div>
+                    <div class="gauge-item">
+                        <span class="gauge-label">Error Rate</span>
+                        <span class="gauge-val" id="err-order_service">0.0%</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <span class="action-title">Fault Injection:</span>
+                    <div class="fault-buttons">
+                        <button onclick="injectFault('order_service', 'high_latency')" class="fault-btn">⚠️ High Latency</button>
+                        <button onclick="injectFault('order_service', 'memory_leak')" class="fault-btn">💾 Memory Leak</button>
+                        <button onclick="injectFault('order_service', 'cascade_failure')" class="fault-btn fault-critical">💥 Cascade Failure</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Service Card -->
+            <div class="service-card" id="card-payment_service">
+                <div class="card-header">
+                    <div class="service-info">
+                        <span class="service-icon">💳</span>
+                        <div>
+                            <h4>Payment Service</h4>
+                            <span class="port-tag">Port :8003</span>
+                        </div>
+                    </div>
+                    <span class="badge badge-normal" id="badge-payment_service">NORMAL</span>
+                </div>
+                <div class="metric-gauges">
+                    <div class="gauge-item">
+                        <span class="gauge-label">CPU</span>
+                        <span class="gauge-val" id="cpu-payment_service">31.2%</span>
+                    </div>
+                    <div class="gauge-item">
+                        <span class="gauge-label">Latency</span>
+                        <span class="gauge-val" id="lat-payment_service">68 ms</span>
+                    </div>
+                    <div class="gauge-item">
+                        <span class="gauge-label">Error Rate</span>
+                        <span class="gauge-val" id="err-payment_service">0.0%</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <span class="action-title">Fault Injection:</span>
+                    <div class="fault-buttons">
+                        <button onclick="injectFault('payment_service', 'high_latency')" class="fault-btn">⚠️ High Latency</button>
+                        <button onclick="injectFault('payment_service', 'gateway_timeout')" class="fault-btn">⏱️ Timeout</button>
+                        <button onclick="injectFault('payment_service', 'cascade_failure')" class="fault-btn fault-critical">💥 Cascade Failure</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Body: Split Charts & Live Anomaly Log -->
+        <div class="split-view">
+            <!-- Left: Real-time Telemetry Charts -->
+            <section class="charts-section">
+                <div class="panel-header">
+                    <h3>📈 Live Metrics Telemetry</h3>
+                    <span class="panel-tag">Auto-updating every 3s</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="metricsChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Right: Real-time AI Anomaly Feed -->
+            <section class="anomaly-section">
+                <div class="panel-header">
+                    <h3>🚨 ML Anomaly Detection Feed</h3>
+                    <span class="badge badge-ai" id="ml-status-pill">Isolation Forest Active</span>
+                </div>
+                <div class="anomaly-list" id="anomaly-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">🛡️</span>
+                        <p>All microservices operating normally.</p>
+                        <small>Inject a fault to see real-time AI detection.</small>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
