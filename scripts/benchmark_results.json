@@ -1,0 +1,39 @@
+{
+  "scenario_1_flash_crowd": {
+    "duration_sec": 50,
+    "static_rule_alerts": 0,
+    "iso_forest_alerts": 0,
+    "sentinel_alerts": 0,
+    "bursts_suppressed": 1,
+    "false_alarm_count": 0,
+    "lead_time_sec": 0.0
+  },
+  "scenario_2_memory_leak": {
+    "duration_sec": 75,
+    "static_rule_alerts": 1,
+    "iso_forest_alerts": 1,
+    "sentinel_alerts": 1,
+    "t_precursor_sec": 15.1,
+    "t_static_breach_sec": 30.3,
+    "lead_time_sec": 15.2,
+    "false_alarm_count": 0
+  },
+  "scenario_3_gateway_timeout": {
+    "duration_sec": 45,
+    "root_cause_service": "payment_service",
+    "static_rule_alerts": 5,
+    "iso_forest_alerts": 5,
+    "sentinel_alerts": 5,
+    "lead_time_sec": 18.0,
+    "false_alarm_count": 0
+  },
+  "scenario_4_cascade_failure": {
+    "duration_sec": 45,
+    "propagation": "Payment -> Order -> User",
+    "static_rule_alerts": 4,
+    "iso_forest_alerts": 4,
+    "sentinel_alerts": 4,
+    "lead_time_sec": 24.0,
+    "false_alarm_count": 0
+  }
+}

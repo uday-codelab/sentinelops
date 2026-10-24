@@ -1,0 +1,31 @@
+{
+  "dataset": "RCAEval_TrainTicket",
+  "suite": "re1tt",
+  "case": "re1tt_ts-order-service_mem_1",
+  "fault_type": "memory_leak",
+  "root_cause_service": "ts-order-service",
+  "injection_start_timestamp": 1693334559,
+  "slo_breach_timestamp": 1693334585,
+  "slo_breach_type": "memory_exhaustion_85_percent",
+  "latency_breach_timestamp": 1693334576,
+  "latency_threshold_seconds": 0.5,
+  "memory_threshold_percent": 85.0,
+  "trace_start_timestamp": 1693334079,
+  "trace_end_timestamp": 1693335039,
+  "total_duration_seconds": 960,
+  "benign_duration_seconds": 480,
+  "fault_duration_seconds": 480,
+  "sample_step_seconds": 5,
+  "monitored_services": [
+    "ts-order-service",
+    "ts-travel-service",
+    "ts-inside-payment-service",
+    "ts-auth-service",
+    "ts-station-service",
+    "ts-basic-service",
+    "ts-consign-service",
+    "ts-food-service",
+    "ts-ticketinfo-service",
+    "ts-train-service"
+  ]
+}

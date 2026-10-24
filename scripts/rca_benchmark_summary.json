@@ -1,0 +1,63 @@
+{
+  "benchmark_metadata": {
+    "dataset": "RCAEval_TrainTicket",
+    "suite": "re1tt",
+    "case": "re1tt_ts-order-service_mem_1",
+    "fault_type": "memory_leak",
+    "root_cause_service": "ts-order-service",
+    "injection_timestamp": 1693334559,
+    "slo_breach_timestamp": 1693334585,
+    "total_vectors_evaluated": 1930,
+    "monitored_services": [
+      "ts-auth-service",
+      "ts-basic-service",
+      "ts-consign-service",
+      "ts-food-service",
+      "ts-inside-payment-service",
+      "ts-order-service",
+      "ts-station-service",
+      "ts-ticketinfo-service",
+      "ts-train-service",
+      "ts-travel-service"
+    ],
+    "evaluation_completed_at": "2026-10-21T15:52:07.944476Z"
+  },
+  "performance_metrics": {
+    "static_threshold": {
+      "strategy": "Static Rule (Mem >= 85% or Lat >= 0.5s)",
+      "true_positives": 76,
+      "false_positives": 46,
+      "false_negatives": 21,
+      "precision": 0.623,
+      "recall": 0.7835,
+      "f1_score": 0.6941,
+      "first_detection_timestamp": 1693334579,
+      "lead_time_seconds": 6.0,
+      "benign_false_alarms": 4
+    },
+    "isolation_forest": {
+      "strategy": "Unsupervised Isolation Forest (Point-in-Time)",
+      "true_positives": 97,
+      "false_positives": 1832,
+      "false_negatives": 0,
+      "precision": 0.0503,
+      "recall": 1.0,
+      "f1_score": 0.0958,
+      "first_detection_timestamp": 1693334559,
+      "lead_time_seconds": 26.0,
+      "benign_false_alarms": 960
+    },
+    "sentinelops_precursor": {
+      "strategy": "Proposed SentinelOps (Load-Decoupled + Drift Slope beta)",
+      "true_positives": 78,
+      "false_positives": 27,
+      "false_negatives": 19,
+      "precision": 0.7429,
+      "recall": 0.8041,
+      "f1_score": 0.7723,
+      "first_detection_timestamp": 1693334579,
+      "lead_time_seconds": 6.0,
+      "benign_false_alarms": 4
+    }
+  }
+}

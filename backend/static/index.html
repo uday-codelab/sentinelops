@@ -1,23 +1,29 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SentinelOps — AIOps Microservices Health Monitor</title>
+    <title>SentinelOps — Intelligent Precursor AIOps Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css?v=2">
 </head>
+
 <body>
     <!-- Top Navigation Header -->
     <header class="navbar">
         <div class="nav-brand">
-            <div class="logo-shield">🛡️</div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
             <div>
                 <h1>SENTINEL<span>OPS</span></h1>
-                <p class="subtitle">AIOps Autonomous Health & Anomaly Detection Platform</p>
+                <p class="subtitle">Dual-Stage Precursor-Aware AIOps Microservices Engine</p>
             </div>
         </div>
         <div class="nav-actions">
@@ -25,186 +31,352 @@
                 <span class="pulse-dot"></span>
                 <span id="system-status-text">AI ENGINE ACTIVE</span>
             </div>
-            <a href="http://localhost:3000" target="_blank" class="nav-btn grafana-link">
-                📊 Open Grafana
+            <a href="http://localhost:3000" target="_blank" class="nav-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Grafana
             </a>
-            <a href="http://localhost:9090" target="_blank" class="nav-btn prom-link">
-                🔥 Prometheus
+            <a href="http://localhost:9090" target="_blank" class="nav-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Prometheus
             </a>
-            <a href="/docs" target="_blank" class="nav-btn docs-link">
-                📑 API Docs
+            <a href="/docs" target="_blank" class="nav-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                API Docs
             </a>
         </div>
     </header>
 
     <main class="dashboard-container">
-        <!-- Global Controls Banner -->
-        <section class="controls-banner">
-            <div class="control-group">
-                <h3>⚡ Demo Operations</h3>
-                <div class="btn-cluster">
-                    <button id="btn-toggle-traffic" class="btn btn-primary">
-                        <span class="btn-icon">🚀</span> <span id="traffic-btn-label">Start Traffic Simulation</span>
-                    </button>
-                    <button id="btn-reset-all" class="btn btn-success">
-                        <span class="btn-icon">🟢</span> Reset All Normal
-                    </button>
-                    <button id="btn-train-ml" class="btn btn-secondary">
-                        <span class="btn-icon">🧠</span> Retrain Isolation Forest
-                    </button>
+        <!-- 1. Benchmark Action Bar -->
+        <section class="benchmark-suite-card">
+            <div class="action-bar-header">
+                <div>
+                    <h3>Benchmark Chaos Suite</h3>
+                    <p>One-click reproducible failure scenarios to evaluate false-alarm immunity, proactive lead time, and failure prevention.</p>
                 </div>
             </div>
-            <div class="telemetry-stats">
-                <div class="stat-card">
-                    <span class="stat-title">Active Services</span>
-                    <span class="stat-value" id="stat-active-services">3 / 3</span>
+            <div class="scenario-buttons-grid">
+                <button id="btn-scenario-flash-crowd" class="btn-bench btn-bench-surge">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2"><path d="M2 12s3-4 6-4 6 8 10 8 4-4 4-4"/><path d="M2 17s3-4 6-4 6 8 10 8 4-4 4-4"/></svg>
+                    <div class="btn-label">
+                        <span class="btn-title">1. Benign Flash Crowd</span>
+                        <span class="btn-sub">300% RPS Surge (Zero FPs)</span>
+                    </div>
+                </button>
+                <button id="btn-scenario-memory-leak" class="btn-bench btn-bench-leak">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d29922" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    <div class="btn-label">
+                        <span class="btn-title">2. Memory Leak</span>
+                        <span class="btn-sub">Proactive TTB Countdown</span>
+                    </div>
+                </button>
+                <button id="btn-scenario-gateway-timeout" class="btn-bench btn-bench-timeout">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bc8cff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <div class="btn-label">
+                        <span class="btn-title">3. Gateway Timeout</span>
+                        <span class="btn-sub">Load Ratio Localization</span>
+                    </div>
+                </button>
+                <button id="btn-scenario-cascade-failure" class="btn-bench btn-bench-cascade">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f85149" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <div class="btn-label">
+                        <span class="btn-title">4. Cascade Failure</span>
+                        <span class="btn-sub">Cluster Saturation</span>
+                    </div>
+                </button>
+                <button id="btn-scenario-reset" class="btn-bench btn-bench-reset">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3fb950" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    <div class="btn-label">
+                        <span class="btn-title">Reset Normal</span>
+                        <span class="btn-sub">Healthy Baseline</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. Top Innovation Showcase (2-Column Grid) -->
+        <section class="showcase-grid">
+            <!-- Left Card: Proactive Precursor Monitor -->
+            <div class="sre-card" id="precursor-card">
+                <div class="sre-card-header">
+                    <div class="sre-card-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d29922" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        Proactive Precursor Monitor (TTB Lead-Time)
+                    </div>
+                    <span class="card-pill pill-dormant" id="precursor-status-badge">MONITOR: DORMANT</span>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-title">Anomalies Caught</span>
-                    <span class="stat-value text-red" id="stat-anomaly-count">0</span>
+                <div class="countdown-box">
+                    <div id="ttb-countdown" class="stat-number">--</div>
+                    <span class="stat-unit">SECONDS</span>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-title">ML Model</span>
-                    <span class="stat-value text-cyan">Isolation Forest</span>
+                <div class="metadata-subgrid">
+                    <div class="meta-item">
+                        <span class="meta-label">Target Service</span>
+                        <span class="meta-val" id="precursor-service-val">None</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Drift Velocity (β)</span>
+                        <span class="meta-val" id="precursor-slope-val">0.0000 %/tick</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Current Memory</span>
+                        <span class="meta-val" id="precursor-mem-val">-- %</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tripwire Head-Start</span>
+                        <span class="meta-val text-green" id="precursor-lead-val">+41.4s Precursor Advantage</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Card: Bivariate Load Decoupling Shield -->
+            <div class="sre-card" id="burst-shield-card">
+                <div class="sre-card-header">
+                    <div class="sre-card-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fb950" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Bivariate Load Decoupling Shield
+                    </div>
+                    <span class="card-pill pill-dormant" id="burst-status-badge">SHIELD: READY</span>
+                </div>
+                <div class="countdown-box" style="padding: 18px 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#3fb950" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.05rem;" id="shield-headline">Surge Discrimination Engine</div>
+                            <div style="font-size: 0.76rem; color: var(--text-secondary);" id="shield-subtext">Decouples legitimate traffic demand from internal degradation to eliminate false alarms.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metadata-subgrid">
+                    <div class="meta-item">
+                        <span class="meta-label">Normalization Ratio</span>
+                        <span class="meta-val">L̃ = Latency / max(RPS, 0.5)</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Suppression Rule</span>
+                        <span class="meta-val">L̃ &le; 0.08 &amp; β &le; 0.20</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">False Alarms Suppressed</span>
+                        <span class="meta-val text-green" id="shield-suppressed-count">0 FPs (Immune)</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Cluster Status</span>
+                        <span class="meta-val text-green" id="shield-live-status">Protecting</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Service Cards Grid -->
+        <!-- 3. 3-Way Strategy Comparison Matrix Table -->
+        <section class="matrix-card">
+            <div class="matrix-header">
+                <h3>Live 3-Way Strategy Comparison Matrix</h3>
+                <span class="paradigm-badge" style="background: rgba(56, 139, 253, 0.15); border-color: rgba(56, 139, 253, 0.4); color: var(--color-blue-text);">
+                    Dual-Stage Synchronized
+                </span>
+            </div>
+            <div class="matrix-table-wrapper">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 32%;">Detection Strategy</th>
+                            <th style="width: 20%;">Operational Paradigm</th>
+                            <th style="width: 16%;">User Service (:8001)</th>
+                            <th style="width: 16%;">Order Service (:8002)</th>
+                            <th style="width: 16%;">Payment Service (:8003)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="strategy-col">
+                                <strong>Static Threshold Rule</strong>
+                                <small>Prometheus (Mem &ge; 85% or Lat &ge; 0.5s)</small>
+                            </td>
+                            <td><span class="paradigm-badge">Reactive Tripwire</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-static-user_service">OK</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-static-order_service">OK</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-static-payment_service">OK</span></td>
+                        </tr>
+                        <tr>
+                            <td class="strategy-col">
+                                <strong>Isolation Forest Baseline</strong>
+                                <small>Unsupervised Point-in-Time Outlier</small>
+                            </td>
+                            <td><span class="paradigm-badge">Point Outlier</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-iso-user_service">OK</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-iso-order_service">OK</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-iso-payment_service">OK</span></td>
+                        </tr>
+                        <tr class="row-highlight">
+                            <td class="strategy-col">
+                                <strong>SentinelOps Precursor Engine</strong>
+                                <small>Load-Decoupled Ratio + 1st-Order Drift Slope β</small>
+                            </td>
+                            <td><span class="paradigm-badge" style="background: rgba(56, 139, 253, 0.2); color: var(--color-blue-text); border-color: var(--border-accent);">Proactive Dual-Stage</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-sentinel-user_service">OK</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-sentinel-order_service">OK</span></td>
+                            <td><span class="badge-status badge-ok" id="matrix-sentinel-payment_service">OK</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. Service Cards (3-Column Grid) -->
         <section class="services-grid">
-            <!-- User Service Card -->
+            <!-- User Service -->
             <div class="service-card" id="card-user_service">
-                <div class="card-header">
-                    <div class="service-info">
-                        <span class="service-icon">👤</span>
-                        <div>
-                            <h4>User Service</h4>
-                            <span class="port-tag">Port :8001</span>
-                        </div>
+                <div class="service-header">
+                    <div class="service-title-block">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <h4>User Service</h4>
+                        <span class="service-port">:8001</span>
                     </div>
-                    <span class="badge badge-normal" id="badge-user_service">NORMAL</span>
+                    <span class="badge-status badge-ok" id="badge-user_service">NORMAL</span>
                 </div>
-                <div class="metric-gauges">
-                    <div class="gauge-item">
-                        <span class="gauge-label">CPU</span>
-                        <span class="gauge-val" id="cpu-user_service">24.5%</span>
+                <div class="service-stats-list">
+                    <div class="stat-row">
+                        <span class="stat-row-label">CPU Utilization</span>
+                        <span class="stat-row-val" id="cpu-user_service">24.5%</span>
                     </div>
-                    <div class="gauge-item">
-                        <span class="gauge-label">Latency</span>
-                        <span class="gauge-val" id="lat-user_service">45 ms</span>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Memory Utilization</span>
+                        <span class="stat-row-val" style="color: #58a6ff;" id="mem-user_service">42.0%</span>
                     </div>
-                    <div class="gauge-item">
-                        <span class="gauge-label">Error Rate</span>
-                        <span class="gauge-val" id="err-user_service">0.0%</span>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Drift Velocity (β)</span>
+                        <span class="stat-row-val" id="slope-user_service">+0.00</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Latency (avg)</span>
+                        <span class="stat-row-val" id="lat-user_service">45 ms</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Error Rate</span>
+                        <span class="stat-row-val" id="err-user_service">0.0%</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <span class="action-title">Fault Injection:</span>
-                    <div class="fault-buttons">
-                        <button onclick="injectFault('user_service', 'high_latency')" class="fault-btn">⚠️ High Latency</button>
-                        <button onclick="injectFault('user_service', 'cpu_spike')" class="fault-btn">🔥 CPU Spike</button>
-                        <button onclick="injectFault('user_service', 'cascade_failure')" class="fault-btn fault-critical">💥 Cascade Failure</button>
-                    </div>
+                <div class="card-fault-actions">
+                    <button onclick="injectFault('user_service', 'high_latency')" class="btn-mini-fault">Latency</button>
+                    <button onclick="injectFault('user_service', 'cpu_spike')" class="btn-mini-fault">CPU Spike</button>
+                    <button onclick="injectFault('user_service', 'cascade_failure')" class="btn-mini-fault btn-fault-alert">Cascade</button>
                 </div>
             </div>
 
-            <!-- Order Service Card -->
+            <!-- Order Service -->
             <div class="service-card" id="card-order_service">
-                <div class="card-header">
-                    <div class="service-info">
-                        <span class="service-icon">📦</span>
-                        <div>
-                            <h4>Order Service</h4>
-                            <span class="port-tag">Port :8002</span>
-                        </div>
+                <div class="service-header">
+                    <div class="service-title-block">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bc8cff" stroke-width="2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        <h4>Order Service</h4>
+                        <span class="service-port">:8002</span>
                     </div>
-                    <span class="badge badge-normal" id="badge-order_service">NORMAL</span>
+                    <span class="badge-status badge-ok" id="badge-order_service">NORMAL</span>
                 </div>
-                <div class="metric-gauges">
-                    <div class="gauge-item">
-                        <span class="gauge-label">CPU</span>
-                        <span class="gauge-val" id="cpu-order_service">28.0%</span>
+                <div class="service-stats-list">
+                    <div class="stat-row">
+                        <span class="stat-row-label">CPU Utilization</span>
+                        <span class="stat-row-val" id="cpu-order_service">28.0%</span>
                     </div>
-                    <div class="gauge-item">
-                        <span class="gauge-label">Latency</span>
-                        <span class="gauge-val" id="lat-order_service">52 ms</span>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Memory Utilization</span>
+                        <span class="stat-row-val" style="color: #58a6ff;" id="mem-order_service">50.0%</span>
                     </div>
-                    <div class="gauge-item">
-                        <span class="gauge-label">Error Rate</span>
-                        <span class="gauge-val" id="err-order_service">0.0%</span>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Drift Velocity (β)</span>
+                        <span class="stat-row-val" id="slope-order_service">+0.00</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Latency (avg)</span>
+                        <span class="stat-row-val" id="lat-order_service">52 ms</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Error Rate</span>
+                        <span class="stat-row-val" id="err-order_service">0.0%</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <span class="action-title">Fault Injection:</span>
-                    <div class="fault-buttons">
-                        <button onclick="injectFault('order_service', 'high_latency')" class="fault-btn">⚠️ High Latency</button>
-                        <button onclick="injectFault('order_service', 'memory_leak')" class="fault-btn">💾 Memory Leak</button>
-                        <button onclick="injectFault('order_service', 'cascade_failure')" class="fault-btn fault-critical">💥 Cascade Failure</button>
-                    </div>
+                <div class="card-fault-actions">
+                    <button onclick="injectFault('order_service', 'high_latency')" class="btn-mini-fault">Latency</button>
+                    <button onclick="injectFault('order_service', 'memory_leak')" class="btn-mini-fault" style="border-color: #d29922; color: #d29922;">Mem Leak</button>
+                    <button onclick="injectFault('order_service', 'cascade_failure')" class="btn-mini-fault btn-fault-alert">Cascade</button>
                 </div>
             </div>
 
-            <!-- Payment Service Card -->
+            <!-- Payment Service -->
             <div class="service-card" id="card-payment_service">
-                <div class="card-header">
-                    <div class="service-info">
-                        <span class="service-icon">💳</span>
-                        <div>
-                            <h4>Payment Service</h4>
-                            <span class="port-tag">Port :8003</span>
-                        </div>
+                <div class="service-header">
+                    <div class="service-title-block">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d29922" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                        <h4>Payment Service</h4>
+                        <span class="service-port">:8003</span>
                     </div>
-                    <span class="badge badge-normal" id="badge-payment_service">NORMAL</span>
+                    <span class="badge-status badge-ok" id="badge-payment_service">NORMAL</span>
                 </div>
-                <div class="metric-gauges">
-                    <div class="gauge-item">
-                        <span class="gauge-label">CPU</span>
-                        <span class="gauge-val" id="cpu-payment_service">31.2%</span>
+                <div class="service-stats-list">
+                    <div class="stat-row">
+                        <span class="stat-row-label">CPU Utilization</span>
+                        <span class="stat-row-val" id="cpu-payment_service">31.2%</span>
                     </div>
-                    <div class="gauge-item">
-                        <span class="gauge-label">Latency</span>
-                        <span class="gauge-val" id="lat-payment_service">68 ms</span>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Memory Utilization</span>
+                        <span class="stat-row-val" style="color: #58a6ff;" id="mem-payment_service">55.0%</span>
                     </div>
-                    <div class="gauge-item">
-                        <span class="gauge-label">Error Rate</span>
-                        <span class="gauge-val" id="err-payment_service">0.0%</span>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Drift Velocity (β)</span>
+                        <span class="stat-row-val" id="slope-payment_service">+0.00</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Latency (avg)</span>
+                        <span class="stat-row-val" id="lat-payment_service">68 ms</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-row-label">Error Rate</span>
+                        <span class="stat-row-val" id="err-payment_service">0.0%</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <span class="action-title">Fault Injection:</span>
-                    <div class="fault-buttons">
-                        <button onclick="injectFault('payment_service', 'high_latency')" class="fault-btn">⚠️ High Latency</button>
-                        <button onclick="injectFault('payment_service', 'gateway_timeout')" class="fault-btn">⏱️ Timeout</button>
-                        <button onclick="injectFault('payment_service', 'cascade_failure')" class="fault-btn fault-critical">💥 Cascade Failure</button>
-                    </div>
+                <div class="card-fault-actions">
+                    <button onclick="injectFault('payment_service', 'high_latency')" class="btn-mini-fault">Latency</button>
+                    <button onclick="injectFault('payment_service', 'gateway_timeout')" class="btn-mini-fault">Timeout</button>
+                    <button onclick="injectFault('payment_service', 'cascade_failure')" class="btn-mini-fault btn-fault-alert">Cascade</button>
                 </div>
             </div>
         </section>
 
-        <!-- Main Body: Split Charts & Live Anomaly Log -->
+        <!-- 5. Telemetry & Anomaly Split View -->
         <div class="split-view">
-            <!-- Left: Real-time Telemetry Charts -->
-            <section class="charts-section">
-                <div class="panel-header">
-                    <h3>📈 Live Metrics Telemetry</h3>
-                    <span class="panel-tag">Auto-updating every 3s</span>
+            <!-- Left: Telemetry Chart -->
+            <section class="telemetry-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 0.95rem; font-weight: 600;">Live Telemetry Stream</h3>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">TimescaleDB Hypertable Sync (3s poll)</p>
+                    </div>
+                    <div class="metric-toggle-group">
+                        <button id="btn-chart-cpu" class="toggle-btn active">CPU %</button>
+                        <button id="btn-chart-mem" class="toggle-btn">Memory % (Leak Trajectory)</button>
+                        <button id="btn-chart-load" class="toggle-btn">Load Ratio (L̃)</button>
+                    </div>
                 </div>
                 <div class="chart-container">
                     <canvas id="metricsChart"></canvas>
                 </div>
             </section>
 
-            <!-- Right: Real-time AI Anomaly Feed -->
-            <section class="anomaly-section">
-                <div class="panel-header">
-                    <h3>🚨 ML Anomaly Detection Feed</h3>
-                    <span class="badge badge-ai" id="ml-status-pill">Isolation Forest Active</span>
+            <!-- Right: Anomaly Feed -->
+            <section class="anomaly-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 0.95rem; font-weight: 600;">AI Detection Feed</h3>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">Real-Time Anomaly Logs &amp; TTB Attribution</p>
+                    </div>
+                    <span class="badge-status" style="background: rgba(248, 81, 73, 0.15); border: 1px solid rgba(248, 81, 73, 0.4); color: var(--color-red-text);" id="stat-anomaly-count">0</span>
                 </div>
                 <div class="anomaly-list" id="anomaly-list">
                     <div class="empty-state">
-                        <span class="empty-icon">🛡️</span>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6e7681" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         <p>All microservices operating normally.</p>
-                        <small>Inject a fault to see real-time AI detection.</small>
+                        <small>Click a scenario above to test detection.</small>
                     </div>
                 </div>
             </section>
@@ -214,6 +386,7 @@
     <!-- Notification Toast -->
     <div id="toast" class="toast"></div>
 
-    <script src="/static/app.js"></script>
+    <script src="/static/app.js?v=2"></script>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, status
+﻿from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
 from prometheus_client import Counter, Histogram, Gauge, make_asgi_app
 import time
@@ -117,9 +117,9 @@ def inject_fault(mode: str):
         MEMORY.labels(service=SERVICE_NAME).set(55.0)
         ERROR_RATE.labels(service=SERVICE_NAME).set(0.10)
     elif mode == "memory_leak":
-        simulated_memory_baseline = 92.0
+        simulated_memory_baseline = 52.0
         CPU.labels(service=SERVICE_NAME).set(75.0)
-        MEMORY.labels(service=SERVICE_NAME).set(92.0)
+        MEMORY.labels(service=SERVICE_NAME).set(52.0)
         ERROR_RATE.labels(service=SERVICE_NAME).set(0.20)
     elif mode == "cascade_failure":
         CPU.labels(service=SERVICE_NAME).set(96.0)
